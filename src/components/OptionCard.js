@@ -1,7 +1,11 @@
 import React from 'react'
 import { Box, Button, Card, CardActionArea, CardContent, CardMedia, TextField, Typography } from '@mui/material'
+import { useAppContext } from '../context/appContext'
 const indigo = "#4f46e5"
-const QuickStoryCard = ({title,image}) => {
+ 
+const OptionCard = ({title,image}) => {
+
+  const {setOption} = useAppContext()
   return (<>
   <Card sx={{ width: "49%"}}>
       <CardActionArea sx={{background:"white"}}>
@@ -21,7 +25,7 @@ const QuickStoryCard = ({title,image}) => {
             Lizards are a widespread group of squamate reptiles, with over 6,000
             species, ranging across all continents except Antarctica
           </Typography>
-          <Button variant={"contained"}   sx={{width:"100%",background:indigo}}>Create</Button>
+          <Button variant={"contained"}   sx={{width:"100%",background:indigo}} onClick={()=>setOption(title)}>Create</Button>
         </CardContent>
       </CardActionArea>
     </Card>
@@ -31,4 +35,4 @@ const QuickStoryCard = ({title,image}) => {
   )
 }
 
-export default QuickStoryCard
+export default OptionCard

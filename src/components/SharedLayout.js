@@ -18,7 +18,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { theme } from '../theme';
  
@@ -31,7 +31,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import GroupIcon from '@mui/icons-material/Group';
 import GradeIcon from '@mui/icons-material/Grade';
 import SettingsIcon from '@mui/icons-material/Settings';
-
+import { useAppContext } from '../context/appContext';
+ 
 const drawerWidth = 240;
 const offWhite =  "#e2e8f0" 
 const indigo = "#4f46e5"
@@ -81,6 +82,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function SharedLayout() {
+
+  const {setOption} = useAppContext()
+  const navigate= useNavigate()
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -92,7 +97,6 @@ export default function SharedLayout() {
     setOpen(false);
   };
 
- 
 
   return (
     <Box sx={{ display: 'flex'}}>
@@ -142,7 +146,9 @@ export default function SharedLayout() {
             <ListItem sx={{padding:0,marginTop:0}} >
               <Box sx={{width:"100%"}}>                       
                 <Typography sx={{color:offWhite,color:offWhite,fontWeight:"medium" ,fontSize:"20px",paddingLeft:"20px",paddingTop:"5px",paddingBottom:"5px"}}>Create</Typography>
-                <ListItemButton  sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",width:"100%",fontWeight:"light"}}>
+                <ListItemButton onClick={ ()=>{
+                  navigate("/create") 
+                  setOption("")}} sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",width:"100%",fontWeight:"light"}}>
                  <MenuBookIcon sx={{marginRight:"10px"}}/> Stories
                 </ListItemButton>
                 <ListItemButton sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",fontWeight:"light"}}>
@@ -154,7 +160,7 @@ export default function SharedLayout() {
             <ListItem sx={{padding:0,marginTop:0}} >
               <Box sx={{width:"100%"}}>                       
                 <Typography sx={{color:offWhite,color:offWhite,fontWeight:"medium" ,fontSize:"20px",paddingLeft:"20px",paddingTop:"5px",paddingBottom:"5px"}}>Discover</Typography>
-                <ListItemButton  sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",width:"100%",fontWeight:"light"}}>
+                <ListItemButton  onClick={()=>navigate('/browse')}sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",width:"100%",fontWeight:"light"}}>
                 <SearchIcon sx={{marginRight:"10px"}}/>Browse
                 </ListItemButton>
                 <ListItemButton sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",fontWeight:"light"}}>
