@@ -16,9 +16,12 @@ const AppProvider = ({ children }) => {
     const [option,setOption] = useState("")
     //Story Creation Inputs
 
-    //user id
+    //Authentication info
     const [currentUserId, setCurrentUserId] = useState("");
     const[accessToken,setAccessToken]= useState("")
+
+    //Story info
+    const [currentStoryId, setCurrentStoryId] = useState("");
 
     let initialValues = {
 
@@ -50,8 +53,12 @@ const AppProvider = ({ children }) => {
        accessToken,
        setAccessToken,
 
+       //Current Storybook Info
+       currentStoryId,
+       setCurrentStoryId,
 
-        //storybook 
+
+        //Creation Info
         option,
         setOption,
         values,

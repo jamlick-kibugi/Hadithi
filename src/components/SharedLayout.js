@@ -21,6 +21,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { theme } from '../theme';
+import { useAuth0 } from "@auth0/auth0-react";
  
 //Icons 
 import MenuBookIcon from '@mui/icons-material/MenuBook';
@@ -32,6 +33,9 @@ import GroupIcon from '@mui/icons-material/Group';
 import GradeIcon from '@mui/icons-material/Grade';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useAppContext } from '../context/appContext';
+import {useEffect, useState } from 'react'
+import axios, { Axios, AxiosError } from 'axios';
+import { BACKEND_URL } from '../constants';
  
 const drawerWidth = 240;
 const offWhite =  "#e2e8f0" 
@@ -97,6 +101,29 @@ export default function SharedLayout() {
     setOpen(false);
   };
 
+  const { user,isAuthenticated,getAccessTokenSilently } = useAuth0();    
+  const {accessToken,setAccessToken,setCurrentUserId,currentUserId}=useAppContext()
+
+  useEffect(()=>{
+    if(isAuthenticated){
+      
+    async function getToken(){
+            let accessToken = await getAccessTokenSilently();
+            setAccessToken(accessToken)
+        
+            const {email,given_name,family_name}=user
+            
+            const res = await axios.post(`${BACKEND_URL}/auth/register`, {                       
+                email:email,firstName:given_name,lastName:family_name }).then((res)=>{                
+                    
+                    setCurrentUserId(res.data.id)                       
+                })              
+     }  
+     
+     getToken()  
+     
+    }          
+},[isAuthenticated,getAccessTokenSilently])
 
   return (
     <Box sx={{ display: 'flex'}}>
@@ -147,7 +174,7 @@ export default function SharedLayout() {
               <Box sx={{width:"100%"}}>                       
                 <Typography sx={{color:offWhite,color:offWhite,fontWeight:"medium" ,fontSize:"20px",paddingLeft:"20px",paddingTop:"5px",paddingBottom:"5px"}}>Create</Typography>
                 <ListItemButton onClick={ ()=>{
-                  navigate("/create") 
+                  navigate("/dashboard/create") 
                   setOption("")}} sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",width:"100%",fontWeight:"light"}}>
                  <MenuBookIcon sx={{marginRight:"10px"}}/> Stories
                 </ListItemButton>
@@ -160,7 +187,7 @@ export default function SharedLayout() {
             <ListItem sx={{padding:0,marginTop:0}} >
               <Box sx={{width:"100%"}}>                       
                 <Typography sx={{color:offWhite,color:offWhite,fontWeight:"medium" ,fontSize:"20px",paddingLeft:"20px",paddingTop:"5px",paddingBottom:"5px"}}>Discover</Typography>
-                <ListItemButton  onClick={()=>navigate('/browse')}sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",width:"100%",fontWeight:"light"}}>
+                <ListItemButton  onClick={()=>navigate('/dashboard/browse')}sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",width:"100%",fontWeight:"light"}}>
                 <SearchIcon sx={{marginRight:"10px"}}/>Browse
                 </ListItemButton>
                 <ListItemButton sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",fontWeight:"light"}}>

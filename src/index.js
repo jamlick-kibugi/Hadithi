@@ -7,14 +7,23 @@ import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme';
 import { AppProvider } from "./context/appContext";
+import { Auth0Provider } from '@auth0/auth0-react';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
   <ThemeProvider theme={theme}>
      <AppProvider>
-  <React.StrictMode>
+ 
+  <Auth0Provider
+    domain="dev-ar0l70p2.us.auth0.com"
+    clientId="HG70MPNgW7tcrdlfY0F6YRYfdvyW7JpJ"
+    authorizationParams={{
+      redirect_uri: window.location.origin
+    }}
+  >
     <App />
-  </React.StrictMode>
+    </Auth0Provider>
+  
   </AppProvider>
   </ThemeProvider>
 );

@@ -8,6 +8,7 @@ import StoryPage from './pages/storyPage/StoryPage';
 import SideBar from './components/SharedLayout';
 import SharedLayout from './components/SharedLayout';
 import BrowsingPage from './pages/BrowsingPage/BrowsingPage';
+import LandingPage from './pages/LandingPage/LandingPage';
  
  
 const App = () => {
@@ -15,20 +16,21 @@ const App = () => {
   return (
     <BrowserRouter>
     <Routes>
-      {/* <Route path='/register' element={<Register />}></Route>
-      <Route path='/landing' element={<Landing />} /> */}
+      {/* <Route path='/register' element={<Register />}></Route> */}
+      <Route path='/' element={<LandingPage />} />
       <Route
-        path='/'
+        path='/dashboard'
         element={
           // <ProtectedRoute>
             <SharedLayout />
           // </ProtectedRoute>
         }
       >
-         {/* <Route index element={<CreatePage />}></Route> */}
+         {/* <Route index element={<LandingPage />}></Route> */}
         {/* <Route index element={<Stats />}></Route> */}
-        <Route path='/create' element={<CreatePage />}></Route>
-        <Route path='/browse' element={<BrowsingPage/>}></Route>
+        <Route path='/dashboard/create' element={<CreatePage />}></Route>
+        <Route path='/dashboard/browse' element={<BrowsingPage/>}></Route>
+        <Route path='/dashboard/story' element={<StoryPage/>}></Route>
      
       </Route>
       {/* <Route path='*' element={<Error />}></Route> */}

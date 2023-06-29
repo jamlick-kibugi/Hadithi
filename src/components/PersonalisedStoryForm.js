@@ -7,6 +7,10 @@ import CoverDetails from './CoverDetails';
 import StoryParameters from './StoryParameters';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/appContext';
+import { storage } from '../firebase';
+import { uploadBytes, getDownloadURL, ref as sRef } from "firebase/storage";
+import createStory from '../utils/createStory';
+import createPage from '../utils/createPage';
  
 const PersonalisedStoryForm = () => {
   const{values,handleChange} = useAppContext()
@@ -62,40 +66,33 @@ const PersonalisedStoryForm = () => {
   // };
 // End of Stepper Function
  
-const {setOption} = useAppContext()
+const {setOption,currentUserId} = useAppContext()
 
   const handleSubmit =async (e)=>{
     
     e.preventDefault()
     console.log("submit")
+    await axios.post(`${BACKEND_URL}/story`,values)
+    .then((res)=>{       
+      console.log(res.data)        
+    //upload images to firebase and create story + pages 
+    const story = createStory(
+      res.data.coverUrl,
+      res.data.title,
+      currentUserId,
+      res.data.imageArray,
+      res.data.promptArray,
+      res.data.paragraphs
+      )  
 
-    let imageArray = []
-    await axios.post(`${BACKEND_URL}/story`,values).then((res)=>{  
-        
-      let jsonData = res.data.imagePrompts.replace(/(\r\n|\n|\r)/gm, "")  
-      jsonData =  jsonData.replace(/\\/g, "");  
-     jsonData = jsonData.replace(/\[|\]/g, "");
-     jsonData= jsonData.replace(/["]+/g, '')
-    imageArray = jsonData.split(",") 
-      
-     const storyId = res.data.story.id
-      const data ={storyId,imageArray}
-      
-    console.log(data)
-    return data
-
+    
      
-      })
-      .then((data)=>{
-         console.log(data.storyId)
-         console.log(data.imageArray[0])
-        for(let i=0; i<imageArray.length ; i++ ){
-          axios.post(`${BACKEND_URL}/story/image`,{imageDesc:data.imageArray[i],storyId:data.storyId}).then((res)=>{
-            console.log(res.data)
-          })
-        }
-         
-      })
+    
+
+    })
+     
+    
+  
       
   }
   return (<>
@@ -159,7 +156,11 @@ const {setOption} = useAppContext()
             </Button>
           )} */}
 
-          <Button onClick={handleNext} variant={"contained"}>
+          <Button onClick={(e)=>{
+            if(activeStep < steps.length - 1){
+              handleNext()
+            }else 
+            handleSubmit(e)} } variant={"contained"}>
             {activeStep === steps.length - 1 ? 'Do the magic' : 'Next'}
           </Button>
         </Box>
