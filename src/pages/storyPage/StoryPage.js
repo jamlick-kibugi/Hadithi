@@ -1,31 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { BACKEND_URL } from '../../constants'
-import { Box, Button, Card, CardContent, CardMedia, Typography } from '@mui/material'
+import { Box, Button, Card, CardContent, CardMedia, TextField, Typography } from '@mui/material'
 import { useAppContext } from '../../context/appContext'
 import StoryContent from '../../components/StoryContent'
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import CommentCard from '../../components/CommentCard'
+ 
 const indigo = "#4f46e5"
 
 const StoryPage = () => {
 
  
-    const {currentStoryId,setCurrentStoryId} =useAppContext()
-
-    // const values ={
-    //     pageContent:"",
-    //     pageUrl:"",
-    //     prompt:"",
-    // }
-    // const [storyContent,setStoryContent] =useState(values)
-
-    // const [pagesArray,setPagesArray] =useState([])
+    const {currentStoryId,setCurrentStoryId,userName} =useAppContext()
+ 
     const [pageNumber,setPageNumber] =useState(0)
     const [pageLimit,setPageLimit]=useState(0)
     const [page,setPage] =useState(null)
     const [prompt,setPrompt] = useState("")
     const [showPrompt,setShowPrompt] =useState(false)
+    const [comment,setComment]=useState("")
+    const [commentThread,setCommentThread]=useState([])
+    const [activeComment,setActiveComment]= useState("")
+    
 
     const incrementPage = ()=>{
         if(pageNumber == pageLimit-1 ){
@@ -44,6 +42,16 @@ const StoryPage = () => {
         }
     }
 
+    const handleSubmit =async(commentId)=>{
+           console.log("hi")   
+
+           setComment("")  
+           const res = await axios.post(`${BACKEND_URL}/story/page/comment/${currentStoryId}`,{content:comment,createdBy:userName});
+           setCommentThread([...commentThread,res.data]) 
+   
+    
+      }
+
 
 
     
@@ -55,15 +63,21 @@ const StoryPage = () => {
                 setPage(res.data.rows[0])
                 setPageLimit(res.data.count)
                 setPrompt(res.data.rows[0].prompt)
-            //     setStoryContent({...storyContent,pageContent:res.data[1].pageContent,
-            //     pageUrl:res.data[1].pageUrl,
-            // prompt:res.data[1].prompt})            
+                     
                
-            })    
+            })          
              
 
         }
+        const getComments = async()=>{
+            await axios.get(`${BACKEND_URL}/story/page/comment/1`).then((res)=>{                
+                setCommentThread(res.data)
+            })
+
+        }
         getPages()
+        getComments()
+        
 
 
     },[pageNumber])
@@ -94,19 +108,41 @@ const StoryPage = () => {
 
         </Card> 
     : null }  
+ 
     <Box sx={{display:"flex",justifyContent:"space-between",marginTop:"10px", width:"50%"}}>
     <Button variant="contained"  sx={{background:indigo}} disabled={pageNumber==0}onClick={decrementPage}>Previous</Button>        
     <Button variant="contained"  sx={{background:indigo}}  disabled={pageNumber==pageLimit-1}  onClick={incrementPage}>Next</Button>
     </Box>
 
 
-         
-        
-     
-     
-   
-   
+    {/*Comment Box*/}  
+    <Box sx={{width:"50%",mt:"40px"}}>
+
+    <Box display="flex" justifyContent="space-between" sx={{width:"100%", backgroundColor:"white"}} >
+
+    <TextField sx={{flexGrow: 1 ,marginRight:"10px"}}value={comment} onChange={(e)=>setComment(e.target.value)}/>
+    <Button variant="contained" onClick={()=>handleSubmit()}>Comment</Button>
+    </Box>   
+
+    <Box   display="grid"  gap="20px" width="100%" mt="40px" sx={{ padding:5  }}>
+
+    {commentThread.length> 0 ?  commentThread.map((comment,index)=>{
+                return <CommentCard 
+                key={index} 
+                setCommentThread={setCommentThread} 
+                commentThread={commentThread} 
+                comment={comment.content} 
+                createdAt={comment.createdAt}
+                createdBy={comment.createdBy}
+                commentId={comment.id}
+                activeComment={activeComment}
+                setActiveComment={setActiveComment} />}
+                
+    ): null}
+    </Box>
+
        
+    </Box>
     </Box>
 
 

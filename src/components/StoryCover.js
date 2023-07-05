@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Button, Card, CardActionArea, CardContent, CardMedia, TextField, Typography } from '@mui/material'
 import { useAppContext } from '../context/appContext'
 import { useNavigate } from 'react-router-dom'
- 
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 const indigo = "#4f46e5"
  
 const StoryCover = ({title,image,storyId}) => {
@@ -12,7 +12,9 @@ const {currentStoryId,setCurrentStoryId} =useAppContext()
   const {setOption} = useAppContext()
   return (<>
   <Card sx={{ width: "49%"}}>
-      <CardActionArea sx={{background:"white"}}>
+    
+      <CardActionArea sx={{background:"white", position:"relative"}}>
+      <Button sx={{position:"absolute",top:"10px",right:"10px"}} variant="contained"><FavoriteBorderIcon/></Button>
        
         <CardMedia
           component="img"

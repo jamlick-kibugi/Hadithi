@@ -87,7 +87,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function SharedLayout() {
 
-  const {setOption} = useAppContext()
+  const {setOption,setUserName} = useAppContext()
   const navigate= useNavigate()
 
   const theme = useTheme();
@@ -116,7 +116,8 @@ export default function SharedLayout() {
             const res = await axios.post(`${BACKEND_URL}/auth/register`, {                       
                 email:email,firstName:given_name,lastName:family_name }).then((res)=>{                
                     
-                    setCurrentUserId(res.data.id)                       
+                    setCurrentUserId(res.data.id)    
+                    setUserName(res.data.email)                   
                 })              
      }  
      
@@ -226,7 +227,7 @@ export default function SharedLayout() {
          
         
       </Drawer>
-      <Main open={open} sx={{background:"black", height:"100vh" }}>
+      <Main open={open} sx={{background:"black", height:"100vh",overflowY:"scroll" }}>
         <Box sx={{marginTop:10}}>          
          <Outlet />
         </Box>

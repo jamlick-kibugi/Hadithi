@@ -18,6 +18,7 @@ const AppProvider = ({ children }) => {
 
     //Authentication info
     const [currentUserId, setCurrentUserId] = useState("");
+    const [userName,setUserName] = useState("")
     const[accessToken,setAccessToken]= useState("")
 
     //Story info
@@ -52,6 +53,8 @@ const AppProvider = ({ children }) => {
        setCurrentUserId,
        accessToken,
        setAccessToken,
+       userName,
+       setUserName,
 
        //Current Storybook Info
        currentStoryId,
