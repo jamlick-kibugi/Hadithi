@@ -179,7 +179,8 @@ export default function SharedLayout() {
                   setOption("")}} sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",width:"100%",fontWeight:"light"}}>
                  <MenuBookIcon sx={{marginRight:"10px"}}/> Stories
                 </ListItemButton>
-                <ListItemButton sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",fontWeight:"light"}}>
+                <ListItemButton onClick={ ()=>{
+                  navigate("/dashboard/illustrations") }}sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",fontWeight:"light"}}>
                 <InsertPhotoIcon sx={{marginRight:"10px"}}/> Illustration
                 </ListItemButton>
               </Box>              
@@ -208,6 +209,10 @@ export default function SharedLayout() {
                 </ListItemButton>
                 <ListItemButton sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",fontWeight:"light"}}>
                 <GroupIcon sx={{marginRight:"10px"}}/>Collaborations
+                 </ListItemButton>
+
+                 <ListItemButton onClick={()=>{navigate("/dashboard/library/illustrations")}} sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",fontWeight:"light"}}>
+                <GroupIcon sx={{marginRight:"10px"}}/>Illustrations
                  </ListItemButton>
               </Box>              
             </ListItem>

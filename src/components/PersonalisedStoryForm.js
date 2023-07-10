@@ -83,9 +83,7 @@ const {setOption,currentUserId} = useAppContext()
       res.data.imageArray,
       res.data.promptArray,
       res.data.paragraphs
-      )  
-
-    
+      )      
      
     
 
@@ -122,6 +120,7 @@ const {setOption,currentUserId} = useAppContext()
    {/* <StoryDetails/> */}
    {activeStep==0 ? <CoverDetails/>:null}
    {activeStep==1 ? <StoryParameters/>:null}
+   {/* {activeStep==1 ? <CircularProgress>:null} */}
 
 
 
@@ -150,11 +149,7 @@ const {setOption,currentUserId} = useAppContext()
             Back
           </Button>
           <Box sx={{ flex: '1 1 auto' }} />
-          {/* {isStepOptional(activeStep) && (
-            <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-              Skip
-            </Button>
-          )} */}
+           
 
           <Button onClick={(e)=>{
             if(activeStep < steps.length - 1){

@@ -48,7 +48,11 @@ import createPage from "./createPage";
                 createPage(imageArray[i],promptArray[i],paragraphs[i],storyId,pageNumber)             
 
                 }
+
                 
+                
+            }).then(()=>{
+            
             })
              // myBlob is now the blob that the object URL pointed to.
            }

@@ -94,21 +94,25 @@ const StoryParameters = () =>
     <Select
     labelId="demo-simple-select-label"
     id="demo-simple-select"
-    value={values.age}
+    value={values.style}
     label="Style"
+    name="style"
     onChange={handleChange}
   >
-    <MenuItem value={10}>Cartoon</MenuItem>
-    <MenuItem value={20}>Fantasy</MenuItem>
-    <MenuItem value={30}>Studio Ghibli</MenuItem>
-    <MenuItem value={30}>van Gogh</MenuItem>
+    <MenuItem value={"Children's story book"}>Cartoon</MenuItem>
+    <MenuItem value={"Horror movie"}>Fantasy</MenuItem>
+    <MenuItem value={"Studio Ghibli"}>Studio Ghibli</MenuItem>
+    <MenuItem value={"Van Gogh Painting"}>van Gogh</MenuItem>
   </Select>
   </FormControl>
     </Box>
 <Typography>Story Length</Typography>
     <Slider
   size="small"
-  defaultValue={400}
+  name= "length"
+  onChange={handleChange}
+  defaultValue={values.length}
+  step={100}
   aria-label="Small"
   valueLabelDisplay="auto"
   min={200}
@@ -117,11 +121,14 @@ const StoryParameters = () =>
 <Typography>No. of pages</Typography>
 <Slider
   size="small"
-  defaultValue={200}
+  onChange={handleChange}   
+  value={values.numOfPages}
+  name = "numOfPages"
   aria-label="Small"
   valueLabelDisplay="auto"
+  step={1}
   min={3}
-  max={1200}
+  max={5}
 />
 
 

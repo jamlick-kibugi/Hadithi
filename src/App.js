@@ -9,6 +9,8 @@ import SideBar from './components/SharedLayout';
 import SharedLayout from './components/SharedLayout';
 import BrowsingPage from './pages/BrowsingPage/BrowsingPage';
 import LandingPage from './pages/LandingPage/LandingPage';
+import IllustrationPage from './pages/IllustrationPage/IllustrationPage';
+import IllustrationGallery from './pages/IllustrationPage/IllustrationGallery';
  
  
 const App = () => {
@@ -31,6 +33,8 @@ const App = () => {
         <Route path='/dashboard/create' element={<CreatePage />}></Route>
         <Route path='/dashboard/browse' element={<BrowsingPage/>}></Route>
         <Route path='/dashboard/story' element={<StoryPage/>}></Route>
+        <Route path='/dashboard/illustrations' element={<IllustrationPage />}></Route>
+        <Route path='/dashboard/library/illustrations' element={<IllustrationGallery/>}></Route>
      
       </Route>
       {/* <Route path='*' element={<Error />}></Route> */}

@@ -16,6 +16,12 @@ const AppProvider = ({ children }) => {
     const [option,setOption] = useState("")
     //Story Creation Inputs
 
+    //Canvas
+    const canvasRef = useRef(null);
+  function setCanvasRef(ref) {
+    canvasRef.current = ref;
+}
+
     //Authentication info
     const [currentUserId, setCurrentUserId] = useState("");
     const [userName,setUserName] = useState("")
@@ -23,6 +29,7 @@ const AppProvider = ({ children }) => {
 
     //Story info
     const [currentStoryId, setCurrentStoryId] = useState("");
+     
 
     let initialValues = {
 
@@ -31,14 +38,14 @@ const AppProvider = ({ children }) => {
         character:"",
         location:"",
         genre:"",
-        age: 1,
+        age: 5,
         style:"",
-        length:"200",
-        numOfPages:3,
+        length:400,
+        numOfPages:5,
       }
     
       const [values,setValues]= useState(initialValues)
-      
+      const [isDrawing,setIsDrawing] = useState(true)
       const handleChange=(e)=>{
        console.log(e.target.value)
        setValues({...values,[e.target.name]:e.target.value})
@@ -59,14 +66,21 @@ const AppProvider = ({ children }) => {
        //Current Storybook Info
        currentStoryId,
        setCurrentStoryId,
-
+ 
 
         //Creation Info
         option,
         setOption,
         values,
         setValues,
-        handleChange
+        handleChange,
+        //Drawing
+        setIsDrawing,
+        isDrawing,
+        canvasRef,
+        setCanvasRef
+
+        
 
         
       }}

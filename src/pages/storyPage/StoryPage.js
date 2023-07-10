@@ -70,7 +70,7 @@ const StoryPage = () => {
 
         }
         const getComments = async()=>{
-            await axios.get(`${BACKEND_URL}/story/page/comment/1`).then((res)=>{                
+            await axios.get(`${BACKEND_URL}/story/page/comment/${currentStoryId}`).then((res)=>{                
                 setCommentThread(res.data)
             })
 
