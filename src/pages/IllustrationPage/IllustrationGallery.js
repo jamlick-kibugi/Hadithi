@@ -25,13 +25,13 @@ import IllustrationCard from '../../components/IllustrationCard';
 const IllustrationGallery = () => {
 
     const [illustrations,setIllustrations] = useState([])
-    const {currentUserIdserId} = useAppContext()
+    const {currentUserId} = useAppContext()
 
     
 
     useEffect(()=>{
         const getIllustrations=async ()=>{
-            await axios.get(`${BACKEND_URL}/story/illustration/1`).then((res)=>{
+            await axios.get(`${BACKEND_URL}/story/illustration/${currentUserId}`).then((res)=>{
                  console.log(res.data)
                  setIllustrations(res.data)
             })          

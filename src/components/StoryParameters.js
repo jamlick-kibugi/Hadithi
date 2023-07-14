@@ -61,13 +61,15 @@ const StoryParameters = () =>
     labelId="demo-simple-select-label"
     id="demo-simple-select"
     value={values.genre}
-    name="genre"
+    name="genreId"
     label="Genre"
     onChange={handleChange}
   >
-    <MenuItem value={"Mystery"}>Mystery</MenuItem>
-    <MenuItem value={"Adventure"}>Adventure</MenuItem>
-    <MenuItem value={"FairyTale"}>Fairy Tale</MenuItem>
+    <MenuItem value={1}>Fairytale</MenuItem>
+    <MenuItem value={2}>Adventure</MenuItem>
+    <MenuItem value={3}>Mystery</MenuItem>
+    <MenuItem value={4}>Science Fiction</MenuItem>
+    <MenuItem value={5}>Horror</MenuItem>
   </Select>
   </FormControl>
 
@@ -77,15 +79,15 @@ const StoryParameters = () =>
     labelId="demo-simple-select-label"
     id="demo-simple-select"
     value={values.age}
-    name="age"
+    name="ageId"
     label="Age"
     onChange={handleChange}
   >
-    <MenuItem value={2}>1-2</MenuItem>
-    <MenuItem value={4}>3-4</MenuItem>
-    <MenuItem value={6}>5-6</MenuItem>
-    <MenuItem value={8}>7-8</MenuItem>
-    <MenuItem value={10}>9-10</MenuItem>
+    <MenuItem value={1}>"1-3"</MenuItem>
+    <MenuItem value={2}>"3-6"</MenuItem>
+    <MenuItem value={3}>"6-9"</MenuItem>
+    <MenuItem value={4}>"9-12"</MenuItem>
+    <MenuItem value={5}>"12-15"</MenuItem>
   </Select>
   </FormControl>
 

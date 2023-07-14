@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, Slider, Step, StepLabel, Stepper, TextField, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, FormControl, InputLabel, MenuItem, Select, Slider, Stack, Step, StepLabel, Stepper, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import axios from 'axios'
 import { BACKEND_URL } from '../constants';
@@ -13,7 +13,7 @@ import createStory from '../utils/createStory';
 import createPage from '../utils/createPage';
  
 const PersonalisedStoryForm = () => {
-  const{values,handleChange} = useAppContext()
+  const{values,handleChange,isLoading,setIsLoading} = useAppContext()
   const navigate = useNavigate()
   const steps = ['Describe your story', 'Story parameters'];
   
@@ -40,6 +40,7 @@ const PersonalisedStoryForm = () => {
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
+    console.log(activeStep)
   };
 
   const handleBack = () => {
@@ -82,8 +83,13 @@ const {setOption,currentUserId} = useAppContext()
       currentUserId,
       res.data.imageArray,
       res.data.promptArray,
-      res.data.paragraphs
+      res.data.paragraphs,
+      values.ageId,
+      values.genreId,
+      
       )      
+
+      setIsLoading(false)
      
     
 
@@ -115,31 +121,37 @@ const {setOption,currentUserId} = useAppContext()
         );
       })}
     </Stepper>
-
+ 
 
    {/* <StoryDetails/> */}
+   <Box sx={{display:"flex",justifyContent:"center",marginTop:"20px"}}>
+
    {activeStep==0 ? <CoverDetails/>:null}
    {activeStep==1 ? <StoryParameters/>:null}
-   {/* {activeStep==1 ? <CircularProgress>:null} */}
+   <Box sx={{display:"flex",flexDirection:"column", alignItems:"center", marginBottom:"20px"}}>
+   {activeStep==2 && isLoading? <CircularProgress/>:null}
+   {activeStep==2 && isLoading? <Typography>Working our magic</Typography>:null}
+   </Box>
+   {activeStep==2 && !isLoading? <Typography >Your story has been created. Check it out in your library!</Typography>:null}
+   </Box>
+  
+  
+        
 
 
-
-    {activeStep === steps.length ? (
+    
       <React.Fragment>
-        <Typography>Working our magic</Typography>
-        {/* <Typography sx={{ mt: 2, mb: 1 }}>
-          All steps completed - you&apos;re finished
-        </Typography> */}
+      {activeStep==2  && !isLoading?
         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
           <Box sx={{ flex: '1 1 auto' }} />
           <Button onClick={()=>{setOption("")}} variant={"contained"}>Back to Main</Button>
-        </Box>
+        </Box>:null}
       </React.Fragment>
-    ) : (
+   
       <React.Fragment>
         {/* <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography> */}
         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-          <Button
+          {activeStep!==2?<Button
              background="black"
             disabled={activeStep === 0}
             onClick={handleBack}
@@ -147,20 +159,22 @@ const {setOption,currentUserId} = useAppContext()
             variant={"contained"}
           >
             Back
-          </Button>
+          </Button>:null}
           <Box sx={{ flex: '1 1 auto' }} />
            
 
-          <Button onClick={(e)=>{
+          {activeStep!==2 ?<Button onClick={(e)=>{
             if(activeStep < steps.length - 1){
               handleNext()
             }else 
+            handleNext()
+            setIsLoading(true)
             handleSubmit(e)} } variant={"contained"}>
             {activeStep === steps.length - 1 ? 'Do the magic' : 'Next'}
-          </Button>
+          </Button>:null}
         </Box>
       </React.Fragment>
-    )}
+    
   </Box>
   
 

@@ -6,8 +6,10 @@ import axios from "axios";
 import { BACKEND_URL } from "../constants";
 import createPage from "./createPage";
  
-    export default function createStory(url,title,currentUserId,imageArray,promptArray,paragraphs) {
-        
+ 
+ 
+    export default function createStory(url,title,currentUserId,imageArray,promptArray,paragraphs,ageId,genreId) {
+ 
       
       let coverUrl = ""
 
@@ -36,7 +38,7 @@ import createPage from "./createPage";
              }).then(async(url)=>{
                 console.log("we made it")                
                 coverUrl = url
-                const res= await axios.post(`${BACKEND_URL}/story/cover`,{coverUrl:coverUrl,title:title,userId:currentUserId})
+                const res= await axios.post(`${BACKEND_URL}/story/cover`,{coverUrl:coverUrl,title:title,userId:currentUserId,ageId:ageId,genreId:genreId})
                 return res
             }).then(async(res)=>{
                 const storyId = res.data.id

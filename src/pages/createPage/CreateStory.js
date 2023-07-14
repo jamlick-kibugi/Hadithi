@@ -6,6 +6,7 @@ import CreateOptions from '../../components/CreateOptions'
 import PersonalisedStoryForm from '../../components/PersonalisedStoryForm'
 import CreateStory from '../../components/CreateStory'
 import { useAppContext } from '../../context/appContext'
+import CollabStoryForm from '../../components/CollabStoryForm'
  
 const CreatePage = () => {
   const {option} = useAppContext()
@@ -14,6 +15,7 @@ const CreatePage = () => {
     <Box sx={{background:"white",padding:"20px",borderRadius:"20px", justifyContent:"center",display:"flex",background:"#f8fafc"}}>
       {option==""?<CreateOptions  />:null}
       {option=="Personalised Stories"?<PersonalisedStoryForm/>:null}
+      {option=="Collaborative Stories"?<CollabStoryForm/>:null}
       {/* <PersonalisedStoryForm/> */}
       {/* <CreateStory/> */}
     </Box>

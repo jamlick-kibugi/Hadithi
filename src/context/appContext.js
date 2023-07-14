@@ -15,6 +15,7 @@ const AppProvider = ({ children }) => {
     // Personalised stories or collaborative stories
     const [option,setOption] = useState("")
     //Story Creation Inputs
+    const [openModal,setOpenModal]=useState(false)
 
     //Canvas
     const canvasRef = useRef(null);
@@ -29,7 +30,11 @@ const AppProvider = ({ children }) => {
 
     //Story info
     const [currentStoryId, setCurrentStoryId] = useState("");
-     
+     const [isLoading,setIsLoading]=useState(false)
+
+     //Collab Info
+     const [currentCollabId,setCurrentCollabId]=useState("")
+     const [isEditing,setIsEditing] =useState(false)
 
     let initialValues = {
 
@@ -37,10 +42,10 @@ const AppProvider = ({ children }) => {
         content:"",
         character:"",
         location:"",
-        genre:"",
-        age: 5,
+        genreId:1,
+        ageId: 1,
         style:"",
-        length:400,
+        length:800,
         numOfPages:5,
       }
     
@@ -66,6 +71,18 @@ const AppProvider = ({ children }) => {
        //Current Storybook Info
        currentStoryId,
        setCurrentStoryId,
+       isLoading,
+       setIsLoading,
+       //current collab info
+       currentCollabId,
+       setCurrentCollabId,
+       isEditing,
+       setIsEditing,
+       
+
+       //modal info
+       openModal,
+       setOpenModal,
  
 
         //Creation Info

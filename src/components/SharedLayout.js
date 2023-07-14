@@ -102,7 +102,7 @@ export default function SharedLayout() {
   };
 
   const { user,isAuthenticated,getAccessTokenSilently } = useAuth0();    
-  const {accessToken,setAccessToken,setCurrentUserId,currentUserId}=useAppContext()
+  const {accessToken,setAccessToken,setCurrentUserId,currentUserId,setIsEditing}=useAppContext()
 
   useEffect(()=>{
     if(isAuthenticated){
@@ -207,7 +207,9 @@ export default function SharedLayout() {
                 <ListItemButton  sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",width:"100%",fontWeight:"light"}}>
                 <MenuBookIcon sx={{marginRight:"10px"}}/>Stories
                 </ListItemButton>
-                <ListItemButton sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",fontWeight:"light"}}>
+                <ListItemButton onClick={ ()=>{
+                  navigate("/dashboard/library/userCollabs")
+                  setIsEditing(false) }} sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",fontWeight:"light"}}>
                 <GroupIcon sx={{marginRight:"10px"}}/>Collaborations
                  </ListItemButton>
 
