@@ -1,15 +1,18 @@
+import React from 'react'
+import CollabCard from '../CollabCard'
 import { Box, Typography } from '@mui/material'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { BACKEND_URL } from '../../constants'
 import StoryCover from '../../components/StoryCover'
 import { useAppContext } from '../../context/appContext'
-import CollabCard from '../../components/CollabCard'
+ 
 import CollabStoryForm from '../../components/CollabStoryForm'
 import CollabModal from '../../components/CollabModal'
-import UserCollabGrid from '../../components/CollabGrid/UserCollabGrid'
  
-const CollabGallery = () => {
+ 
+ 
+const UserCollabGrid = ({userId}) => {
 
     const{currentUserId,isEditing,setIsEditing,openModal,setOpenModal}=useAppContext()
     const [collabs,setCollabs] =useState([])
@@ -18,7 +21,7 @@ const CollabGallery = () => {
     useEffect(()=>{
 
     const getCollab=async()=>{
-            const res= await axios.get(`${BACKEND_URL}/collab/userCollab/${currentUserId}`).then((res)=>{
+            const res= await axios.get(`${BACKEND_URL}/collab/userCollab/${userId}`).then((res)=>{
                 
                 // console.log(res.data)
                 setCollabs(res.data)
@@ -43,23 +46,7 @@ const CollabGallery = () => {
 
   
     },[])
-
-    
-
-
-
-   
- 
-
-   
-  return ( <>
-    {openModal?<CollabModal/>:null}
-    {isEditing==false ?
-    <Box sx={{display:"flex",flexDirection:"column", background:"white",    
-    padding:"20px",borderRadius:"20px", }}> 
-    <Typography sx={{fontSize:"large"}}>My Collabs</Typography>
-    <UserCollabGrid userId={currentUserId}/>
-    <Typography sx={{fontSize:"large"}}>Shared Collabs</Typography>
+  return (<>
     <Box sx={{        
         justifyContent:"space-around",
         columnGap:"20px",
@@ -70,25 +57,13 @@ const CollabGallery = () => {
         gridTemplateColumns: 'repeat(auto-fill,minmax(300px,1fr))',
         background:"#f8fafc"}}>
      
-      {shareCollabs?.length>0 && isEditing==false ? shareCollabs.map((collab,index)=>{      
-        return <CollabCard coverUrl={collab.Collab.coverUrl}  prompt={collab.Collab.prompt} collabId={collab.Collab.id} setIsEditing={setIsEditing}></CollabCard>}):null}
+      {collabs?.length>0 && isEditing==false ? collabs.map((collab,index)=>{      
+        return <CollabCard coverUrl={collab.coverUrl}  prompt={collab.prompt} collabId={collab.id} setIsEditing={setIsEditing}></CollabCard>}):null}
        
       
     </Box>
-    </Box>
-    :null}
-    
-
-    {isEditing?   <Box sx={{background:"white",
-    padding:"20px",borderRadius:"20px",  display:"flex",justifyContent:"center",width:"100%"}}>
-        <CollabStoryForm/>
-    </Box> :null}    
-
-
-  
-
     </>
   )
 }
 
-export default CollabGallery
+export default UserCollabGrid

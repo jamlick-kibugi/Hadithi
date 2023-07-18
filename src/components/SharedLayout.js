@@ -19,7 +19,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import { theme } from '../theme';
 import { useAuth0 } from "@auth0/auth0-react";
  
@@ -93,6 +93,12 @@ export default function SharedLayout() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  const [userDisplay,setUserDisplay] = useState({
+    name:"",
+    email:"",
+    picture:""
+  })
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -110,14 +116,21 @@ export default function SharedLayout() {
     async function getToken(){
             let accessToken = await getAccessTokenSilently();
             setAccessToken(accessToken)
+            console.log(user)
         
-            const {email,given_name,family_name}=user
+            const {email,given_name,family_name,picture }=user
             
             const res = await axios.post(`${BACKEND_URL}/auth/register`, {                       
-                email:email,firstName:given_name,lastName:family_name }).then((res)=>{                
+                email:email,firstName:given_name,lastName:family_name,picture:picture}).then((res)=>{                
                     
                     setCurrentUserId(res.data.id)    
-                    setUserName(res.data.email)                   
+                    setUserName(res.data.email)   
+                    const userObject ={
+                      name:res.data.firstName+res.data.lastName,
+                      email:res.data.email,
+                      picture:res.data.picture
+                    }
+                    setUserDisplay(userObject)                
                 })              
      }  
      
@@ -125,6 +138,10 @@ export default function SharedLayout() {
      
     }          
 },[isAuthenticated,getAccessTokenSilently])
+
+ 
+
+
 
   return (
     <Box sx={{ display: 'flex'}}>
@@ -141,7 +158,7 @@ export default function SharedLayout() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Persistent drawer
+            StorybookAI
           </Typography>
         </Toolbar>
       </AppBar>
@@ -192,10 +209,8 @@ export default function SharedLayout() {
                 <ListItemButton  onClick={()=>navigate('/dashboard/browse')}sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",width:"100%",fontWeight:"light"}}>
                 <SearchIcon sx={{marginRight:"10px"}}/>Browse
                 </ListItemButton>
-                <ListItemButton sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",fontWeight:"light"}}>
-                <Filter1Icon sx={{marginRight:"10px"}}/>Top Picks
-                </ListItemButton>
-                <ListItemButton sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",fontWeight:"light"}}>
+                
+                <ListItemButton  onClick={()=>navigate('/dashboard/users')}  sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",fontWeight:"light"}}>
                 <EditIcon sx={{marginRight:"10px"}}/>Authors
                 </ListItemButton>
               </Box>              
@@ -204,7 +219,11 @@ export default function SharedLayout() {
             <ListItem sx={{padding:0,marginTop:0}} >
               <Box sx={{width:"100%"}}>                       
                 <Typography sx={{color:offWhite,fontWeight:"medium" ,fontSize:"20px",paddingLeft:"20px",paddingTop:"5px",paddingBottom:"5px"}}>My Library</Typography>
-                <ListItemButton  sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",width:"100%",fontWeight:"light"}}>
+                <ListItemButton onClick={()=>{
+                  navigate("/dashboard/library/userStory")
+                    }
+                  
+                } sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",width:"100%",fontWeight:"light"}}>
                 <MenuBookIcon sx={{marginRight:"10px"}}/>Stories
                 </ListItemButton>
                 <ListItemButton onClick={ ()=>{
@@ -222,17 +241,28 @@ export default function SharedLayout() {
             <ListItem sx={{padding:0,marginTop:0}} >
               <Box sx={{width:"100%"}}>                       
                 <Typography sx={{color:offWhite,fontWeight:"medium" ,fontSize:"20px",paddingLeft:"20px",paddingTop:"5px",paddingBottom:"5px"}}>My Profile</Typography>
-                <ListItemButton  sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",width:"100%",fontWeight:"light"}}>
+                <ListItemButton  onClick={ ()=>{
+                  navigate("/dashboard/userSettings") }}sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",width:"100%",fontWeight:"light"}}>
                 <SettingsIcon sx={{marginRight:"10px"}}/>Settings
                 </ListItemButton>
-                <ListItemButton sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",fontWeight:"light"}}>
+                <ListItemButton  onClick={()=>{
+                  navigate("/dashboard/profile/userLikes")
+                    }
+                  
+                }sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",fontWeight:"light"}}>
                 <GradeIcon sx={{marginRight:"10px"}}/>Liked Stories</ListItemButton>
               </Box>              
             </ListItem>
            
         </List>
-         
-        
+         <Stack direction={"row"} sx={{padding:"10px", background:'#141818' }}>
+          <Box component="img" src={userDisplay.picture} sx={{borderRadius:"50%",width:"40px"}}></Box>           
+          <Stack  direction={"column"} sx={{paddingLeft:"15px"}}>
+          <Typography color={offWhite}>{userDisplay.name}</Typography>
+          <Typography color={offWhite}>{userDisplay.email}</Typography>
+          </Stack>
+         </Stack>
+    
       </Drawer>
       <Main open={open} sx={{background:"black", height:"100vh",overflowY:"scroll" }}>
         <Box sx={{marginTop:10}}>          

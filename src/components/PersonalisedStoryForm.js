@@ -72,7 +72,7 @@ const {setOption,currentUserId} = useAppContext()
   const handleSubmit =async (e)=>{
     
     e.preventDefault()
-    console.log("submit")
+    console.log("SUBMITTING")
     await axios.post(`${BACKEND_URL}/story`,values)
     .then((res)=>{       
       console.log(res.data)        
@@ -166,10 +166,10 @@ const {setOption,currentUserId} = useAppContext()
           {activeStep!==2 ?<Button onClick={(e)=>{
             if(activeStep < steps.length - 1){
               handleNext()
-            }else 
-            handleNext()
-            setIsLoading(true)
-            handleSubmit(e)} } variant={"contained"}>
+            }else {handleNext()
+              setIsLoading(true)
+              handleSubmit(e)}
+            } } variant={"contained"}>
             {activeStep === steps.length - 1 ? 'Do the magic' : 'Next'}
           </Button>:null}
         </Box>

@@ -11,6 +11,8 @@ const AppContext = React.createContext();
 
 // Create Provider
 const AppProvider = ({ children }) => {
+
+  const [trigger,setTrigger] =useState([])
     
     // Personalised stories or collaborative stories
     const [option,setOption] = useState("")
@@ -28,6 +30,9 @@ const AppProvider = ({ children }) => {
     const [userName,setUserName] = useState("")
     const[accessToken,setAccessToken]= useState("")
 
+
+    //User info
+    const [selectedUserId,setSelectedUserId] =useState("")
     //Story info
     const [currentStoryId, setCurrentStoryId] = useState("");
      const [isLoading,setIsLoading]=useState(false)
@@ -78,7 +83,9 @@ const AppProvider = ({ children }) => {
        setCurrentCollabId,
        isEditing,
        setIsEditing,
-       
+       //user Info
+       selectedUserId,
+       setSelectedUserId,
 
        //modal info
        openModal,
@@ -95,7 +102,9 @@ const AppProvider = ({ children }) => {
         setIsDrawing,
         isDrawing,
         canvasRef,
-        setCanvasRef
+        setCanvasRef,
+        trigger,
+        setTrigger
 
         
 

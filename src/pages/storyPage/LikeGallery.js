@@ -21,12 +21,14 @@ import Crop169Icon from '@mui/icons-material/Crop169';
 import ClearAllIcon from '@mui/icons-material/ClearAll';
 import createIllustration from '../../utils/createIllustration';
 import IllustrationCard from '../../components/IllustrationCard';
-import IllustrationGrid from '../../components/IllustrationGrid/IllustrationGrid';
+import StoryCover from '../../components/StoryCover';
+import LikeGrid from '../../components/LikeGrid/LikeGrid';
  
-const IllustrationGallery = () => {
+const LikeGallery = () => {
+  const {currentUserId} =useAppContext()
 
-    
-  const {currentUserId,selectedUserId} = useAppContext()
+   
+
  
  
   return (<>
@@ -34,9 +36,9 @@ const IllustrationGallery = () => {
 
        
 
-    <Box sx={{background:"white",padding:"20px",borderRadius:"20px", justifyContent:"center",display:"flex",flexDirection:"column",background:"#f8fafc"}}>
-    
-     <IllustrationGrid userId={currentUserId} type={"delete"}/>
+    <Box sx={{background:"white",padding:"20px",borderRadius:"20px", alignItems:"center",display:"flex",flexDirection:"column",background:"#f8fafc"}}>
+     <LikeGrid userId={currentUserId} type={"like"}/>
+      
      </Box>
     
     </>
@@ -46,4 +48,4 @@ const IllustrationGallery = () => {
   )
 }
 
-export default IllustrationGallery
+export default LikeGallery

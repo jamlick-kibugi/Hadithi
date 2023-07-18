@@ -21,12 +21,30 @@ import Crop169Icon from '@mui/icons-material/Crop169';
 import ClearAllIcon from '@mui/icons-material/ClearAll';
 import createIllustration from '../../utils/createIllustration';
 import IllustrationCard from '../../components/IllustrationCard';
-import IllustrationGrid from '../../components/IllustrationGrid/IllustrationGrid';
+import UserRow from '../../components/UserRow';
  
-const IllustrationGallery = () => {
+const UserList = () => {
 
+    const [users,setUsers] = useState([])
+
+     
     
-  const {currentUserId,selectedUserId} = useAppContext()
+
+    useEffect(()=>{
+        const getUsers=async ()=>{
+            await axios.get(`${BACKEND_URL}/auth/users`).then((res)=>{
+                  setUsers(res.data)
+                  
+             })
+            }
+
+        getUsers()
+        console.log(users)
+    
+    
+    },[])
+        
+
  
  
   return (<>
@@ -35,9 +53,27 @@ const IllustrationGallery = () => {
        
 
     <Box sx={{background:"white",padding:"20px",borderRadius:"20px", justifyContent:"center",display:"flex",flexDirection:"column",background:"#f8fafc"}}>
+     
+      <Box sx={{  
+        columnGap:"10px",
+        rowGap:"20px",
+        margin:"  auto",
+        display: 'flex',  
+        width:"100%",
+        flexDirection:"column"}} >
+
+        {users.map((user)=>{
+            return <UserRow userId={user.id} biography={user.biography} name={user.firstName + user.lastName} email={user.email} picture={user.picture}/>
+        })}
+
+    </Box>
+</Box>
+
+           
     
-     <IllustrationGrid userId={currentUserId} type={"delete"}/>
-     </Box>
+
+        
+
     
     </>
 
@@ -46,4 +82,4 @@ const IllustrationGallery = () => {
   )
 }
 
-export default IllustrationGallery
+export default UserList

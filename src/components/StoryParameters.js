@@ -83,11 +83,11 @@ const StoryParameters = () =>
     label="Age"
     onChange={handleChange}
   >
-    <MenuItem value={1}>"1-3"</MenuItem>
-    <MenuItem value={2}>"3-6"</MenuItem>
-    <MenuItem value={3}>"6-9"</MenuItem>
-    <MenuItem value={4}>"9-12"</MenuItem>
-    <MenuItem value={5}>"12-15"</MenuItem>
+    <MenuItem value={1}>1-3</MenuItem>
+    <MenuItem value={2}>3-6</MenuItem>
+    <MenuItem value={3}>6-9</MenuItem>
+    <MenuItem value={4}>9-12</MenuItem>
+    <MenuItem value={5}>12-15</MenuItem>
   </Select>
   </FormControl>
 

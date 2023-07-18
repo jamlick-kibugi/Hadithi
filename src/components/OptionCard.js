@@ -6,11 +6,11 @@ import { BACKEND_URL } from '../constants'
 const indigo = "#4f46e5"
  
  
-const OptionCard = ({title,image}) => {
+const OptionCard = ({title,image,content}) => {
 
-  const {setOption,currentUserId,setCurrentCollabId,isLoading,setIsLoading} = useAppContext()
+  const {setOption,currentUserId,setCurrentCollabId,isLoading,setIsLoading } = useAppContext()
   return (<>
-  <Card sx={{ width: "49%"}}>
+  <Card sx={{ width: "49%",height:"fit-content"}}>
       <CardActionArea sx={{background:"white"}}>
        
         <CardMedia
@@ -25,8 +25,7 @@ const OptionCard = ({title,image}) => {
             {title}
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{marginBottom:"20px"}}>
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+           {content}
           </Typography>
           <Button variant={"contained"}   sx={{width:"100%",background:indigo}} onClick={async()=> {
             if (title == "Personalised Stories"){

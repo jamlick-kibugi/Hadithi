@@ -56,6 +56,7 @@ const [prompt,setPrompt]=useState("")
 const [image,setImage]=useState("")
 const [color,setColor] = useState("black")
 const [loading,setLoading] = useState(false)
+const [isGenerating,setIsGenerating]=useState(false)
 // function onDraw(ctx, point, prevPoint) {
 //     drawLine(prevPoint, point, ctx, '#000000', 5);
 // }
@@ -155,7 +156,7 @@ const downloadImage = () => {
 
     <Box sx={{background:"white",padding:"20px",borderRadius:"20px", justifyContent:"center",display:"flex",background:"#f8fafc"}}>
     
-
+    <Box sx={{display:"flex",flexDirection:"column"}}>
     <form onSubmit={handleSubmit( async(formData)=>{
         setLoading(true)
         const image =await  reactCanvasRef.current.exportImage("jpeg")
@@ -169,35 +170,52 @@ const downloadImage = () => {
         )
         
     })}>
-      <Box sx={{display:"grid",gridTemplateColumns:"repeat(3, 1fr)",gap:2 , width:"256px" }}>
-       <Button  variant="contained" onClick={()=>{
+      <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+    
+      <Box sx={{display:"flex",flexDirection:"column"}}>
+     
+      <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+      <Typography sx={{fontSize:"20px"}}> Draw something</Typography>
+      <Box sx={{display:"flex",flexDirection:"row" , justifyContent:"space-between", width:"80%" ,marginBottom:"20px" }}>
+       <Button variant="outlined" onClick={()=>{
         const eraseMode = reactCanvasRef.current?.eraseMode
         eraseMode(false)}}><BrushIcon/></Button>
-       <Button variant="contained" onClick={()=>{
+       <Button  variant="outlined" onClick={()=>{
         const eraseMode = reactCanvasRef.current?.eraseMode
         eraseMode(true)}}><Crop169Icon/></Button>
-       <Button variant="contained" onClick={()=>{
+       <Button variant="outlined"  onClick={()=>{
         const clearCanvas = reactCanvasRef.current?.clearCanvas
         clearCanvas()}}><ClearAllIcon/></Button>
-        </Box>
-
+      </Box>
       <ReactSketchCanvas
             ref={reactCanvasRef}
             style={{width:256, height:256}}
             width="600"
             height="400"
             strokeWidth={4}
-            strokeColor={color}
-             
-            
-            
-            
+            strokeColor={color}     
+            onChange={()=>setIsGenerating(false)}        
       />
+       <Box sx={{height:"30px",mt:"10px",display:"flex",alignItens:"center"}} >
+      
+      <input value={prompt} onChange={(e)=>{setPrompt(e.target.value)
+         setIsGenerating(false)}} style={{height:"100%",marginRight:"10px" }}></input>
+       <Button sx={{height:"100%"}} variant="contained" type="submit"  onClick={()=>{
+         setLoading(true)
+         setIsGenerating(true)}}>Generate</Button>
+       </Box>
+       </Box>
 
-    <Box sx={{height:"30px",mt:"10px",display:"flex",alignItens:"center"}} >
-   <input value={prompt} onChange={(e)=>setPrompt(e.target.value)} style={{height:"100%",marginRight:"10px" }}></input>
-    <Button sx={{height:"100%"}} variant="contained" type="submit"  onClick={()=>{
-      setLoading(true)}}>Generate</Button>
+       
+
+
+      </Box>
+      
+
+      
+
+
+   
     </Box>
       {/* <input {...register("prompt", { required: true })} />
         {errors.prompt && <span> required </span>}
@@ -209,18 +227,22 @@ const downloadImage = () => {
  
    
     </form>
-    <Box sx={{display:"grid"}}>
+
+    {isGenerating ?
+    <Box sx={{display:"grid",marginTop:"20px"}}>
+      <Typography textAlign={"center"} sx={{fontSize:"20px"}}>Your masterpiece</Typography>
      
-    <Box sx={{height:"256px",width:"256px", background:"white",display:"flex",alignItems:"center",justifyContent:"center",border:2}}>
+    <Box sx={{height:"256px",width:"256px", background:"white",display:"flex",alignItems:"center",justifyContent:"center" }}>
       {loading?<CircularProgress/>:null}
        {image && !loading ?<img src={image} style={{height:"256px",width:"256px"}}></img> :  null}
       
     </Box>
-    <Box sx={{display:"flex",justifyContent:"flex-end"}}>
+    <Box sx={{display:"flex",justifyContent:"center"}}>
       <Button sx={{marginTop:"5px"}} onClick={()=>{createIllustration(image,currentUserId)}} variant="contained">Save</Button>
       </Box>
 
-      </Box>
+      </Box>:null}
+     </Box>
      </Box>
     
     </>
