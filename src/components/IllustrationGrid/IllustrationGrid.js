@@ -30,9 +30,9 @@ const IllustrationGrid = ({userId,type}) => {
     },[pageNumber])
         
   return (<>
-    <Box>
-    <Typography fontSize={"20px"} marginBottom="20px">{resultCount}{" "}Illustrations</Typography>
-  </Box>
+    
+    <Typography  sx={{fontSize:"20px",marginBottom:"10px",alignSelf:"flex-start"}}>{resultCount}{' '}{"Illustrations"}</Typography>
+ 
   <Box sx={{  
     columnGap:"10px",
     rowGap:"20px",

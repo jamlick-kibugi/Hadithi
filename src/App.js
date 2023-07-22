@@ -17,6 +17,8 @@ import LikeGallery from './pages/storyPage/LikeGallery';
 import UserList from './pages/UserPage/UserList';
 import UserSettings from './pages/UserPage/UserSettings';
 import UserProfile from './pages/UserPage/UserProfile';
+import CollabViewPage from './pages/CollabPage/CollabViewPage';
+import CollabBrowsingPage from './pages/CollabPage/CollabBrowingPage';
  
 const App = () => {
 
@@ -40,6 +42,8 @@ const App = () => {
         <Route path='/dashboard/userSettings' element={<UserSettings />}></Route>
         <Route path='/dashboard/create' element={<CreatePage />}></Route>
         <Route path='/dashboard/browse' element={<BrowsingPage/>}></Route>
+        <Route path='/dashboard/browse/collabs' element={<CollabBrowsingPage/>}></Route>
+        <Route path='/dashboard/browse/collab' element={<CollabViewPage/>}></Route>
         <Route path='/dashboard/story' element={<StoryPage/>}></Route>
         <Route path='/dashboard/illustrations' element={<IllustrationPage />}></Route>
         <Route path='/dashboard/library/illustrations' element={<IllustrationGallery/>}></Route>

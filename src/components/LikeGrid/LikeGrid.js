@@ -13,6 +13,7 @@ const LikeGrid = ({userId,type}) => {
     const [pageCount,setPageCount] = useState("")
     const [pageNumber,setPageNumber] = useState(1)
     const [resultCount,setResultCount] =useState("")
+    console.log(userId)
 
     useEffect(()=>{
         const getStories=async ()=>{
@@ -33,6 +34,8 @@ const LikeGrid = ({userId,type}) => {
         
 
   return (<>
+  <Box></Box>
+  <Typography  sx={{fontSize:"20px",marginBottom:"10px",alignSelf:"flex-start"}}>{resultCount}{' '}{"Likes"}</Typography>
     <Box sx={{  
         columnGap:"20px",
         rowGap:"20px",
@@ -42,7 +45,7 @@ const LikeGrid = ({userId,type}) => {
         justifyContent:"space-around",
   
        gridTemplateColumns: 'repeat(auto-fill,minmax(250px,1fr))' }}>
-
+     
       {storiesArray?.map((story,index)=>{      
          return <StoryCover index={index} setStoriesArray={setStoriesArray} storiesArray={storiesArray} pageNumber={pageNumber} type={type} key={index} genreId={story.genreId} ageId={story.ageId} createdBy={story?.User} title={story.title} image={story.coverUrl} storyId={story.id} like={story.Likes}/>  
        

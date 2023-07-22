@@ -37,6 +37,7 @@ const LikeGallery = () => {
        
 
     <Box sx={{background:"white",padding:"20px",borderRadius:"20px", alignItems:"center",display:"flex",flexDirection:"column",background:"#f8fafc"}}>
+     <Typography>dsa</Typography>
      <LikeGrid userId={currentUserId} type={"like"}/>
       
      </Box>

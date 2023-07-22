@@ -14,8 +14,8 @@ const CreatePage = () => {
   return (
     <Box sx={{background:"white",padding:"20px",borderRadius:"20px", justifyContent:"center",display:"flex",background:"#f8fafc"}}>
       {option==""?<CreateOptions  />:null}
-      {option=="Personalised Stories"?<PersonalisedStoryForm/>:null}
-      {option=="Collaborative Stories"?<CollabStoryForm/>:null}
+      {option=="Stories"?<PersonalisedStoryForm/>:null}
+      {option=="Collaborations"?<CollabStoryForm/>:null}
       {/* <PersonalisedStoryForm/> */}
       {/* <CreateStory/> */}
     </Box>

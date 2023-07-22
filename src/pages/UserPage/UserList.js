@@ -63,7 +63,7 @@ const UserList = () => {
         flexDirection:"column"}} >
 
         {users.map((user)=>{
-            return <UserRow userId={user.id} biography={user.biography} name={user.firstName + user.lastName} email={user.email} picture={user.picture}/>
+            return <UserRow userId={user.id} biography={user.biography} name={user.firstName+  " "  +user.lastName} email={user.email} picture={user.picture}/>
         })}
 
     </Box>

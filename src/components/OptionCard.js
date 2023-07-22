@@ -28,7 +28,7 @@ const OptionCard = ({title,image,content}) => {
            {content}
           </Typography>
           <Button variant={"contained"}   sx={{width:"100%",background:indigo}} onClick={async()=> {
-            if (title == "Personalised Stories"){
+            if (title == "Stories"){
               setOption(title)}
               else{
                 setOption(title)

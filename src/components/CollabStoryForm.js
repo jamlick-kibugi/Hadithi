@@ -8,6 +8,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import createCollabCover from '../utils/createCollabCover'
 import CollabModal from './CollabModal'
+import AutorenewIcon from '@mui/icons-material/Autorenew';
  
 const CollabStoryForm = () => {
     const {currentCollabId,isLoading,setIsLoading} =useAppContext()
@@ -18,6 +19,7 @@ const CollabStoryForm = () => {
     const [pages,setPages] =useState([])
     const [coverImage,setCoverImage]=useState("")
     const[isCoverLoading,setIsCoverloading]=useState(false)
+    const[isPromptLoading,setIsPromptLoading]=useState(false)
     const [coverPrompt,setCoverPrompt] = useState("")
     function splitParagraph(paragraph) {
         var sentences = paragraph.split('?');
@@ -39,15 +41,10 @@ const CollabStoryForm = () => {
                 console.log(res.data[0])
                 setGuide(splitParagraph(res.data[0].guide))
                 setCoverImage(res.data[0].coverUrl)
-                 
-                 
-
             })
-            
+       }
 
-        }
-
-        const getCollabPages=async()=>{
+    const getCollabPages=async()=>{
           const res= await axios.get(`${BACKEND_URL}/collab/userCollab/pages/${currentCollabId}`).then((res)=>{
               setPages(res.data)
           })
@@ -55,18 +52,14 @@ const CollabStoryForm = () => {
 
       }
 
-
-
         if(currentCollabId){
             getCollab()
             getCollabPages()
         }
 
-        
-      
-  
     },[currentCollabId])
 
+// CREATE COVER IMAGE FROM PROMPT 
     const handleSubmit=()=>{
       setIsCoverloading(true)
 
@@ -82,7 +75,7 @@ const CollabStoryForm = () => {
     }
 
     let [guideNumber,setGuideNumber] =useState(0)
-
+// PAGE FUNCTIONS 
   const incrementNumber =()=>{   
     if (guideNumber >= guide.length -2){
       setGuideNumber(0)
@@ -101,13 +94,40 @@ const CollabStoryForm = () => {
     }
      
   }
-  return (<>
 
+
+  // REGENERATE PROMPT 
+  const regenerateCollab =async()=>{
+    console.log("regen")
+    setIsPromptLoading(true)
+
+    const generate= async()=>{
+      const res = await axios.patch(`${BACKEND_URL}/collab`,{collabId:currentCollabId}).then((res)=>{
+        console.log(res.data)    
+        setCollab(res.data[0])        
+        setGuide(splitParagraph(res.data[0].guide))
+        setIsPromptLoading(false)
+
+      })
+    }
+
+    generate()
+
+  }
+  return (<>
+<Typography>{currentCollabId}</Typography>
 
   <Box width="80%"  >
-    {isLoading? <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}><CircularProgress/> <Typography sx={{marginTop:"20px"}}>Creating collaborative story</Typography></Box> :
+    {isLoading? <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",}}><CircularProgress/> <Typography sx={{marginTop:"20px"}}>Creating collaborative story</Typography></Box> :
     <Box sx={{display:"flex",flexDirection:"column",alignItems:"center" }}>
-        <Typography textAlign={"center"} fontSize={"30px"}  >Write a story about... </Typography>
+      <Stack direction={"row"}>
+      <Typography textAlign={"center"} fontSize={"30px"}  >Write a story about... </Typography>  
+      <Button   onClick={()=>{regenerateCollab()}}><AutorenewIcon/></Button>
+      </Stack>
+    
+    {isPromptLoading? <CircularProgress/>: <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%" }}>
+     
+  
     <Typography textAlign={"center"} fontSize={"25px"}>{collab.prompt}</Typography> 
 
     <Typography sx={{marginTop:"20px"}}> Guiding questions:</Typography>
@@ -116,6 +136,7 @@ const CollabStoryForm = () => {
       <Card sx={{padding:"20px"}}>{guide[guideNumber]}</Card>
       <Button  onClick={()=>{incrementNumber()}} variant="contained"><NavigateNextIcon/></Button>
     </Stack> 
+    </Box>}
     
      <Typography fontSize={"20px"} sx={{marginTop:"20px"}}>Book Cover</Typography> 
      

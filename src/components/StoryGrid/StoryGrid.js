@@ -30,22 +30,7 @@ const StoryGrid = ({userId,type}) => {
     
     },[pageNumber])
 
-    useEffect(()=>{
-        const getStories=async ()=>{
-            // const story = axios.get(`${BACKEND_URL}/story/${pageNumber-1}/6/?ageId=${values.ageId}&genreId=${values.genreId}&searchText=${values.searchText}`).then((res)=>{ 
-            await axios.get(`${BACKEND_URL}/story/${userId}/${pageNumber-1}/6`).then((res)=>{
-                 console.log(res.data)
-                 setStoriesArray(res.data?.allStory.rows)
-                 setResultCount(res.data?.allStory.count)
-                 setPageCount(Math.ceil(res.data?.pageCount))
-                //  setResultCount(res.data?.count)
-            })          
-         }
-
-        getStories()
-    
-    
-    },[pageNumber])
+ 
         
         
 

@@ -146,17 +146,25 @@ const UserProfile = () => {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-      <StoryGrid userId={selectedUserId} type={"none"}/>       
+      <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+      <StoryGrid userId={selectedUserId} type={"none"}/>   
+      </Box>    
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-     <UserCollabGrid userId={selectedUserId} />
+      <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+     <UserCollabGrid userId={selectedUserId} type={"viewer"}/>
+     </Box>
     
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
+      <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
       <IllustrationGrid userId={selectedUserId} type={"none"}/>
+      </Box>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
+      <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
       <LikeGrid userId={selectedUserId} type={"none"} />
+      </Box>
       </CustomTabPanel>
     </Box>
 

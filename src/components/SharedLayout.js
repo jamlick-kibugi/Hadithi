@@ -194,7 +194,7 @@ export default function SharedLayout() {
                 <ListItemButton onClick={ ()=>{
                   navigate("/dashboard/create") 
                   setOption("")}} sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",width:"100%",fontWeight:"light"}}>
-                 <MenuBookIcon sx={{marginRight:"10px"}}/> Stories
+                 <MenuBookIcon sx={{marginRight:"10px"}}/> Book
                 </ListItemButton>
                 <ListItemButton onClick={ ()=>{
                   navigate("/dashboard/illustrations") }}sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",fontWeight:"light"}}>
@@ -207,7 +207,10 @@ export default function SharedLayout() {
               <Box sx={{width:"100%"}}>                       
                 <Typography sx={{color:offWhite,color:offWhite,fontWeight:"medium" ,fontSize:"20px",paddingLeft:"20px",paddingTop:"5px",paddingBottom:"5px"}}>Discover</Typography>
                 <ListItemButton  onClick={()=>navigate('/dashboard/browse')}sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",width:"100%",fontWeight:"light"}}>
-                <SearchIcon sx={{marginRight:"10px"}}/>Browse
+                <SearchIcon sx={{marginRight:"10px"}}/>Stories
+                </ListItemButton>
+                <ListItemButton  onClick={()=>navigate('/dashboard/browse/collabs')}sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",width:"100%",fontWeight:"light"}}>
+                <SearchIcon sx={{marginRight:"10px"}}/>Collaborations
                 </ListItemButton>
                 
                 <ListItemButton  onClick={()=>navigate('/dashboard/users')}  sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",fontWeight:"light"}}>
@@ -233,7 +236,7 @@ export default function SharedLayout() {
                  </ListItemButton>
 
                  <ListItemButton onClick={()=>{navigate("/dashboard/library/illustrations")}} sx={{color:offWhite,paddingLeft:"40px",paddingTop:"5px",paddingBottom:"5px",fontWeight:"light"}}>
-                <GroupIcon sx={{marginRight:"10px"}}/>Illustrations
+                 <InsertPhotoIcon sx={{marginRight:"10px"}}/>Illustrations
                  </ListItemButton>
               </Box>              
             </ListItem>

@@ -4,15 +4,15 @@ import { Box, Typography } from '@mui/material'
 import axios from 'axios'
 import  { useEffect, useState } from 'react'
 import { BACKEND_URL } from '../../constants'
-import StoryCover from '../../components/StoryCover'
+import StoryCover from '../StoryCover'
 import { useAppContext } from '../../context/appContext'
  
-import CollabStoryForm from '../../components/CollabStoryForm'
-import CollabModal from '../../components/CollabModal'
+import CollabStoryForm from '../CollabStoryForm'
+import CollabModal from '../CollabModal'
  
  
  
-const UserCollabGrid = ({userId,type}) => {
+const ViewCollabGrid = ({userId,type}) => {
 
     const{currentUserId,isEditing,setIsEditing,openModal,setOpenModal}=useAppContext()
     const [collabs,setCollabs] =useState([])
@@ -21,7 +21,7 @@ const UserCollabGrid = ({userId,type}) => {
     useEffect(()=>{
 
     const getCollab=async()=>{
-            const res= await axios.get(`${BACKEND_URL}/collab/userCollab/${userId}`).then((res)=>{
+            const res= await axios.get(`${BACKEND_URL}/collab/userCollab`).then((res)=>{
                 
               
                 setCollabs(res.data)
@@ -67,4 +67,4 @@ const UserCollabGrid = ({userId,type}) => {
   )
 }
 
-export default UserCollabGrid
+export default ViewCollabGrid

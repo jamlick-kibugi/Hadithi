@@ -7,15 +7,34 @@ import { useParams } from 'react-router-dom';
 import { BACKEND_URL } from '../constants';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useAppContext } from '../context/appContext';
  
 
  
-const CommentCard = ({comment,commentId,commentThread,setCommentThread,createdAt,createdBy,activeComment,setActiveComment}) => {
-    console.log(comment)
+const CommentCard = ({currentUserId ,commentUserId,comment,commentId,commentThread,setCommentThread,createdAt,createdBy,activeComment,setActiveComment}) => {
+    
+   
+  console.log(comment)
     const { sightingIndex } = useParams();
     const [isEditing,setIsEditing]= useState(false)
-   
+   const [creatorName,setCreatorName] =useState([])
 
+
+    useEffect(()=>{
+      const getCreatorName=async()=>{
+
+        await axios.get(`${BACKEND_URL}/auth/users/${commentUserId}`).then((res)=>{
+          setCreatorName([res.data[0]?.firstName,res.data[0]?.lastName])
+           
+
+          
+        })
+
+      }
+
+     
+      getCreatorName()
+    },[])
     const handleSubmit=async (commentId)=>{
      
         const updatedComment = await axios.patch(`${BACKEND_URL}/story/page/comment/${commentId}`,{content:activeComment});
@@ -60,13 +79,15 @@ const CommentCard = ({comment,commentId,commentThread,setCommentThread,createdAt
                   </Stack>             
                 <Stack direction="row" justifyContent={"space-between"} sx={{ width:"100%"}} >
                  
+               
                   
+                  {commentUserId == currentUserId ?
                   <Box><Button onClick={()=>deleteComment(commentId)} ><DeleteIcon/></Button> 
-                  <Button  onClick={()=>editComment(commentId)}  ><EditIcon/></Button>
-                  </Box>
+                  <Button  onClick={()=>editComment(commentId)}  ><EditIcon/></Button> 
+                  </Box> : <Box sx={{width:"50px"}}></Box>}
                   
                   <Box >
-                  <Typography textAlign="right">{createdBy}</Typography>
+                  <Typography textAlign="right">{creatorName[0] }{" "} {creatorName[1]}</Typography>
                   <Typography textAlign="right">{createdAt}</Typography>
                   </Box>   
                   </Stack>     

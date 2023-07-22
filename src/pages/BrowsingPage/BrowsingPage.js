@@ -43,7 +43,7 @@ const BrowsingPage = () => {
     useEffect(()=>{
         console.log("getting stories")
 
-        const story = axios.get(`${BACKEND_URL}/story/${pageNumber-1}/1/?ageId=${values.ageId}&genreId=${values.genreId}&searchText=${values.searchText}`).then((res)=>{ 
+        const story = axios.get(`${BACKEND_URL}/story/${pageNumber-1}/6/?ageId=${values.ageId}&genreId=${values.genreId}&searchText=${values.searchText}`).then((res)=>{ 
             console.log(res.data)
             setStoriesArray(res.data.allStory)
             setUsersArray(res.data?.allStory.User)
@@ -128,7 +128,7 @@ const BrowsingPage = () => {
        gridTemplateColumns: 'repeat(auto-fill,minmax(250px,1fr))' }}>
 
       {storiesArray?.map((story,index)=>{      
-        return <StoryCover index={index} setStoriesArray={setStoriesArray} storiesArray={storiesArray} pageNumber={pageNumber} type={"like"} key={index} genreId={story.genreId} ageId={story.ageId} createdBy={story?.User} title={story.title} image={story.coverUrl} storyId={story.id} like={story.Likes}/>  
+        return <StoryCover index={index} setStoriesArray={setStoriesArray} storiesArray={storiesArray} pageNumber={pageNumber} type={"like"} key={index} genreId={story.genreId} ageId={story.ageId} createdBy={story?.User} title={story.title} image={story.coverUrl} storyId={story.id} like={story.Likes.filter((item)=>{return item.userId == currentUserId})}/>  
        
       })}
 

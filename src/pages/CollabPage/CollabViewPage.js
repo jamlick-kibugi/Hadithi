@@ -10,10 +10,10 @@ import CommentCard from '../../components/CommentCard'
  
 const indigo = "#4f46e5"
 
-const StoryPage = () => {
+const CollabViewPage = () => {
 
  
-    const {currentStoryId,setCurrentStoryId,userName,currentUserId} =useAppContext()
+    const {currentStoryId,setCurrentStoryId,userName,currentUserId,currentCollabId} =useAppContext()
  
     const [pageNumber,setPageNumber] =useState(0)
     const [pageLimit,setPageLimit]=useState(0)
@@ -42,43 +42,28 @@ const StoryPage = () => {
         }
     }
 
-    const handleSubmit =async(commentId)=>{
-           console.log("hi")   
-
-           setComment("")  
-           const res = await axios.post(`${BACKEND_URL}/story/page/comment/${currentStoryId}`,{content:comment,currentUserId:currentUserId});
-           setCommentThread([...commentThread,res.data]) 
    
-    
-      }
 
 
 
     
     useEffect(()=>{
         const getPages=async ()=>{
-            await axios.get(`${BACKEND_URL}/story/page/${currentStoryId}/${pageNumber}/1`).then((res)=>{
+            await axios.get(`${BACKEND_URL}/collab/userCollab/pages/${currentCollabId} `).then((res)=>{
                 console.log(res.data)    
-                // setPagesArray(res.data)
-                setPage(res.data.rows[0])
-                setPageLimit(res.data.count)
-                setPrompt(res.data.rows[0].prompt)
+              
+                setPage(res.data[pageNumber])
+                setPageLimit(res.data.length)
+                // setPrompt(res.data.rows[0].prompt)
                      
                
             })          
              
 
         }
-        const getComments = async()=>{
-            await axios.get(`${BACKEND_URL}/story/page/comment/${currentStoryId}`).then((res)=>{                
-                setCommentThread(res.data)
-                console.log(commentThread)
-                 
-            })
-
-        }
+         
         getPages()
-        getComments()
+        
         
 
 
@@ -92,20 +77,18 @@ const StoryPage = () => {
      {page!==null ?  
         <Card  sx={{display:"grid",gridTemplateColumns: 'repeat(2, 1fr)',spacing:2,height:"400px",width:"50%"}}>
         <Box sx={{position:"relative"}}>
+             
         <CardMedia
           component="img"   
           image={page.pageUrl}
           width={"100%"} 
           height="100%"
            
-        /> {showPrompt ? 
-        <Box sx={{padding:"10px",position:"absolute",bottom:0 ,background:"white",opacity:0.5 }}>
-       <Typography  fontSize={"8px"}>{prompt}</Typography>
-        </Box> : null}
+        /> 
         </Box>
         <CardContent sx={{display:"flex",flexDirection:"column",justifyContent:"space-between"}}>
             <Typography fontSize={"15px"}>{page.pageContent}</Typography>
-            <Box onClick= {()=>{setShowPrompt(!showPrompt)}}sx={{display:"flex",justifyContent:"flex-end"}}>   <Button >{showPrompt==true? <VisibilityOffIcon/>: <RemoveRedEyeIcon/>}</Button> </Box>
+             
         </CardContent>      
        
 
@@ -118,38 +101,7 @@ const StoryPage = () => {
     </Box>
 
 
-    {/*Comment Box*/}  
-    <Box sx={{width:"50%",mt:"40px"}}>
-
-    <Box display="flex" justifyContent="space-between" sx={{width:"100%", backgroundColor:"white"}} >
-
-    <TextField sx={{flexGrow: 1 ,marginRight:"10px"}}value={comment} onChange={(e)=>setComment(e.target.value)}/>
-    <Button variant="contained" onClick={()=>handleSubmit()}>Comment</Button>
-    </Box>   
      
-    <Box   display="grid"  gap="20px" width="100%" mt="40px" sx={{ padding:5  }}>
-            
-    {commentThread.length> 0 ?  commentThread.map((comment,index)=>{
-                return <CommentCard 
-                currentUserId={currentUserId}
-                commentUserId = {comment.createdBy}
-                key={index} 
-                setCommentThread={setCommentThread} 
-                commentThread={commentThread} 
-                comment={comment.content} 
-
-    
-                createdAt={comment.createdAt}
-                createdBy={comment.createdBy}
-                commentId={comment.id}
-                activeComment={activeComment}
-                setActiveComment={setActiveComment} />}
-                
-    ): null}
-    </Box>
-
-       
-    </Box>
     </Box>
 
 
@@ -157,4 +109,4 @@ const StoryPage = () => {
   )
 }
 
-export default StoryPage
+export default CollabViewPage

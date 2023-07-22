@@ -47,7 +47,7 @@ const {currentStoryId,setCurrentStoryId,currentUserId} =useAppContext()
      
     setInitialLike()
      
-  },[trigger])
+  },[])
 
 
   
@@ -67,7 +67,9 @@ const {currentStoryId,setCurrentStoryId,currentUserId} =useAppContext()
         {/*FOR LIKING STORY*/}
        {type=="like"?
       <Button onClick={()=>{
+        console.log("h0")
         setLiked(!liked)  
+       
         if(liked){
           axios.delete(`${BACKEND_URL}/story/like/${storyId}/${currentUserId}`)
           let items = [...storiesArray];
@@ -76,6 +78,7 @@ const {currentStoryId,setCurrentStoryId,currentUserId} =useAppContext()
           console.log(item.Likes.length)
           items[index] = item;
           setStoriesArray(items);
+          
         }else{            
         axios.post(`${BACKEND_URL}/story/like/${storyId}/${currentUserId}`)
         let items = [...storiesArray];
@@ -84,6 +87,7 @@ const {currentStoryId,setCurrentStoryId,currentUserId} =useAppContext()
           items[index] = item;
           console.log(item.Likes.length)
           setStoriesArray(items);
+          setLiked(true)  
          
          }
   
@@ -93,7 +97,7 @@ const {currentStoryId,setCurrentStoryId,currentUserId} =useAppContext()
       }
         
       sx={{position:"absolute",top:"10px",right:"10px"}} variant="contained">
-        {like.length   ? <FavoriteIcon/>:<FavoriteBorderIcon/>}
+        {liked ? <FavoriteIcon/>:<FavoriteBorderIcon/>}
         </Button>:null}
 
       {/*FOR DELETING STORY*/}
@@ -122,7 +126,8 @@ const {currentStoryId,setCurrentStoryId,currentUserId} =useAppContext()
           alt="green iguana"
         />
         <CardContent>
-          
+          <Typography>{like.length}</Typography>
+          <Typography>{liked}</Typography>
           <Typography fontWeight={"bold"}gutterBottom variant="h5" component="div">
             {title}
           </Typography>
