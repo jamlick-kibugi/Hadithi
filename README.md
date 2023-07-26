@@ -17,11 +17,11 @@ Full-stack web app for children to explore their creativity using AI. Users can 
 
 * **Collaborative stories:** User can write stories with friends. A collaborative story generates a random writing prompt for users and 10 guiding questions for them to complete the story. Collaborative stories can be shared with other users so they can contribute to the story writing. Users can also generate a cover for their story and accompanying images from the paragraphs they've written.
 
-Creating a collaborative story: 
+* Creating a collaborative story: 
 
 ![CollaborativeStory](https://github.com/samsonsim2/storybook-frontend/assets/106437135/08597465-96f9-4d22-adfe-1012bf311653)
 
-Sharing a collaborative story: 
+* Sharing a collaborative story: 
 
 User can share collaborative stories with other users through their email address
 ![image](https://github.com/samsonsim2/storybook-frontend/assets/106437135/a066f707-5f5e-44f6-9400-22ca52723212)
@@ -29,7 +29,11 @@ User can share collaborative stories with other users through their email addres
 Collaborators can only edit stories, while the creators can edit + delete + share 
 ![image](https://github.com/samsonsim2/storybook-frontend/assets/106437135/c7822b8a-835a-4386-ab0a-ff8879522812)
 
-Collaboration gallery: 
+* Collaboration gallery: 
+
+All 
+![image](https://github.com/samsonsim2/storybook-frontend/assets/106437135/eb6e3e17-e351-4aca-a3ea-8d17511811a9)
+
 
 * **Sketch to image:** Users can generate art from their sketches and through simple prompting of the subject matter/ style. Images can be saved to an image gallery and downloaded by the user 
   ![SketchToImage](https://github.com/samsonsim2/storybook-frontend/assets/106437135/0ba91227-c18e-42e0-8d22-a1490590b20a)
