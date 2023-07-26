@@ -65,8 +65,9 @@ User can also update their profile info:
 ![image](https://github.com/samsonsim2/storybook-frontend/assets/106437135/b8da28eb-91f0-4839-a348-945fc0333ef2)
 ![image](https://github.com/samsonsim2/storybook-frontend/assets/106437135/bf6b70f4-bcb8-447e-b0b0-6749c6231d83)
 
+## ERD
+ ![image](https://github.com/samsonsim2/storybook-frontend/assets/106437135/593713be-5b52-428d-a822-08dffead91fc)
 
- 
 
  
 ## Tech Stack: 
