@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# ImagineAI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+Full-stack web app for children to explore their creativity using AI. Users can generate fully illustrated storybooks, write stories with the help of AI-generated prompts, and turn sketches into masterpieces with the click of a button. 
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Features
+ 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* **Customisable AI generated stories:** Create an unlimited number of fully illustrated stories. User gives a brief description of the story they want to write, the characters and setting. User can also specify the genre of the story, the intended age of the target audience ( toddlers or pre-teens), and the length/no. of pages of their story.  
 
-### `npm run build`
+ ![CreateStory](https://github.com/samsonsim2/storybook-frontend/assets/106437135/da4cfc67-1a74-4b78-9e5e-29d674ee47be)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* **Collaborative stories:** User can write stories with friends. A collaborative story generates a random writing prompt for users and 10 guiding questions for them to complete the story. Collaborative stories can be shared with other users so they can contribute to the story writing. Users can also generate a cover for their story and accompanying images from the paragraphs they've written.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![CollaborativeStory](https://github.com/samsonsim2/storybook-frontend/assets/106437135/08597465-96f9-4d22-adfe-1012bf311653)
 
-### `npm run eject`
+* **Sketch to image:** Users can generate art from their sketches and through simple prompting of the subject matter/ style. Images can be saved to an image gallery and downloaded by the user 
+  
+  
+* **Story Gallery:** : Multi-parameter search query, user can filter stories by search, age group, and genre. Pagination is handled on the server side
+  
+* **Author Gallery:** : User can see view other users's gallery and see the stories they have written, collaborations, illustrations, and likes
+  
+ **User Likes:** : Users can like a story and save it in their gallery 
+ 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+* **Image manipulation + Export:** User can adjust brightness/saturation/contrast of the image, sketch over mock-up, and crop images. The final output is then exported as a png with transparent background that can be used for presentation decks.) 
+![Imagemanipulation](https://github.com/samsonsim2/mockup-frontend/assets/106437135/82c17bef-71ae-4954-9871-097aeddefbbd)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* **Draggable Stickers + editable components:** User can also add in IG elements such as location stickers, and easily edit text on the mock-up without having to rely on the designer. This helps to cut-down back and forth time and speeds up communication with clients.
+![DragableSticker](https://github.com/samsonsim2/mockup-frontend/assets/106437135/2ceb46f8-55af-42d2-a00f-d6a98658bbd6)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Tech Stack: 
+* Front end: React, Cropper-JS (cropping functionality), Email-JS (sending invites to collaborate on mockups), html5Canvas
+* UI: Material UI
+* Storage: Firebase
+* Backend: Node, Express, Sequelize
+* Database: PostgreSQL
+* Authorization: Auth0
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Future Improvements
+* Add more formats such as Tiktok ads, and Facebook Ads
+* Add gif editing functionality
+* Social media scheduling
 
-## Learn More
+## Contributors 
+* Samson Sim
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
